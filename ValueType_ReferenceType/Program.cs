@@ -8,9 +8,10 @@ Console.WriteLine(a); // In ra: 10 (a hoàn toàn không bị ảnh hưởng)
 Console.WriteLine(b); // In ra: 20
 */
 
-/*Reference type
- biến p1 , name=An 
-tạo biến p2, p2=p1: copy địa chỉ lưu biến p1 cho p2 (cả 2 cùng trỏ vào 1 đối tượng trên Heap)
+/*Reference type 
+biến p1 , name=An 
+tạo biến p2, p2=p1: copy địa chỉ lưu biến p1 cho p2 (cả 2 cùng trỏ vào 1 đối tượng trên Heap)  
+//tạo biến p2, p2=p1: copy địa chỉ lưu biến p1 cho p2 (cả 2 cùng trỏ vào 1 đối tượng trên Heap) 
 Person p1 = new Person();
 //Person p1 = new Person();
 p1.Name = "An";
@@ -26,25 +27,22 @@ public class Person
 {
     public string Name { get; set; }
 }
- */
+*/
+
+
+
 /*Pass by value
-Mỗi khi hàm đc gọi, hệ thống cấp phát riêng 1 ngăn kéo trên vùng nhớ Stack, ngăn kéo này chứa:
-Các tham số truyền vào hàm.
-Các biến cục bộ khai báo bên trong hàm.
+ Bước 1: Khởi tạo biến number: Trên vùng nhớ Stack của luồng chính, hệ thống cấp phát một ô nhớ riêng cho number và lưu giá trị 5.
 
-Khi gọi TangGiaTri(number):
-Máy tính đọc giá trị hiện tại của biến number (là con số 5).
+Bước 2: Gọi hàm TangGiaTri(number): Runtime tạo ra một Stack Frame (khung ngăn xếp) mới dành riêng cho hàm TangGiaTri. Tại đây, một biến tham số hoàn toàn mới tên là x được tạo ra ở một ô nhớ khác, và giá trị 5 từ number được sao chép sang x.
 
-Nó tạo ra một ô nhớ hoàn toàn mới tên là x nằm trong ngăn kéo của hàm TangGiaTri.
+Bước 3: Thực hiện phép cộng x = x + 10: Lệnh này chỉ ghi đè con số 15 vào ô nhớ của x. Ô nhớ ban đầu của number nằm ở Stack Frame phía dưới hoàn toàn không bị tác động.
 
-Nó chép con số 5 đó bỏ vào ô x.
+Bước 4: Hàm kết thúc: Khi gặp dấu đóng ngoặc }, toàn bộ Stack Frame của TangGiaTri bị hủy, biến x cùng giá trị 15 lập tức bị xóa khỏi bộ nhớ.
 
-Biến number và biến x là hai biến riêng biệt, nằm ở hai ô nhớ hoàn toàn khác nhau. Phép gán bên trong hàm chỉ sửa ô nhớ x, không chạm vào ô nhớ number.
-
- Vùng nhớ của hàm: Là phân vùng nhớ riêng (Stack Frame) được cấp phát tạm thời cho hàm khi nó đang thực thi.
-
-Bản sao: Biến tham số x là một ô nhớ mới nhận giá trị copy từ number. Mọi thao tác cộng trừ đều xảy ra trên x và biến mất khi hàm kết thúc.
+Bước 5: In kết quả: Lệnh Console.WriteLine(number) chỉ đọc dữ liệu từ ô nhớ của number, nơi giá trị vẫn là 5.
  */
+
 
 //using System;
 
@@ -92,16 +90,14 @@ Sửa thuộc tính của đối tượng (p.Property = ...): Thay đổi nội 
 
 
  */
-void ResetPerson(Person p)
-{
-    p.Name = "Bình";       // Sửa thuộc tính: Ảnh hưởng bên ngoài (vì chung địa chỉ Heap)
-    p = new Person();      // Gán đối tượng mới: KHÔNG ảnh hưởng bên ngoài!
-    p.Name = "Cường";      // Chỉ đổi trên đối tượng mới tạo trong hàm
-}
-Person p1 = new Person { Name = "Khang" };
-ResetPerson(p1);
-Console.WriteLine(p1.Name);
-public class Person
-{
-    public string Name { get; set; }
-}
+//void ResetPerson(Person p)
+//{
+//    p.Name = "Bình";      
+//}
+//Person p1 = new Person { Name = "Khang" };
+//ResetPerson(p1);
+//Console.WriteLine(p1.Name);
+//public class Person
+//{
+//    public string Name { get; set; }
+//}
